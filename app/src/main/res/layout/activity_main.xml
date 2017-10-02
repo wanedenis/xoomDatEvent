@@ -40,10 +40,10 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="4dp"
             app:cardElevation="5dp"
-            android:id="@+id/card_next"
+            android:id="@+id/card_prec"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="8dp"
-            app:cardBackgroundColor="#ffff"
+            app:cardBackgroundColor="@color/colorAccent"
             android:layout_alignParentLeft="true">
 
             <TextView
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="PREC"
                 android:textSize="16sp"
-                android:textColor="@color/blue"
+                android:textColor="#fff"
                 android:layout_gravity="bottom"
                 android:drawablePadding="8dp"
                 android:padding="8dp"/>
@@ -93,10 +93,10 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="4dp"
             app:cardElevation="5dp"
-            android:id="@+id/card_prec"
+            android:id="@+id/card_next"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="8dp"
-            app:cardBackgroundColor="#ffff"
+            app:cardBackgroundColor="@color/colorAccent"
             android:layout_alignParentRight="true">
 
             <TextView
@@ -104,14 +104,14 @@
                 android:layout_height="wrap_content"
                 android:text="NEXT"
                 android:textSize="16sp"
-                android:textColor="@color/blue"
+                android:textColor="#fff"
                 android:layout_gravity="bottom"
                 android:drawablePadding="8dp"
                 android:padding="8dp"/>
 
         </android.support.v7.widget.CardView>
 
-        
+
     </RelativeLayout>
 
 

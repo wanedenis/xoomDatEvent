@@ -11,7 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.onetimes.xoomdatevent.adapter.RecyclerEventAdapter;
 import com.onetimes.xoomdatevent.model.Event;
@@ -34,10 +36,12 @@ public class MainActivity extends AppCompatActivity {
     private final static String API_KEY = "";
 
     List<Event> liste_event = new ArrayList<Event>();
+    List<Event> liste_event_bis = new ArrayList<Event>();
 
     RecyclerView recyclerView;
     ProgressBar progressBar;
     TextView empty, pageText;
+    RelativeLayout layout;
 
     CardView next, prec;
 
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        layout = (RelativeLayout) findViewById(R.id.layout);
         prec = (CardView) findViewById(R.id.card_prec);
         next = (CardView) findViewById(R.id.card_next);
         empty = (TextView) findViewById(R.id.empty);
@@ -67,8 +72,57 @@ public class MainActivity extends AppCompatActivity {
 
                 int a = liste_event.size() / 50;
 
+                a++;
+
+                if ( a > 1 && page < a){
+
+                    page++;
+
+                    getEltPagination(page);
+
+                    prec.setVisibility(View.VISIBLE);
+
+                    String str = page + " / " + a;
+                    pageText.setText(str);
+
+                }else {
+
+                    Toast.makeText(MainActivity.this, "You are already at the last Page!", Toast.LENGTH_LONG).show();
+
+                }
+
             }
         });
+
+
+        prec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int a = liste_event.size() / 50;
+
+                a++;
+
+                if ( a > 1 && page > 1){
+
+                    page--;
+
+                    getEltPagination(page);
+
+                    next.setVisibility(View.VISIBLE);
+
+                    String str = page + " / " + a;
+                    pageText.setText(str);
+
+                }else {
+
+                    Toast.makeText(MainActivity.this, "You are already at the first Page!", Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        });
+
 
 
         progressBar.setVisibility(View.VISIBLE);
@@ -111,12 +165,22 @@ public class MainActivity extends AppCompatActivity {
 
                 int size = liste_event.size() / 50;
 
-                if (size < 1){
+                size++;
 
+                if (size > 1){
 
+                    layout.setVisibility(View.VISIBLE);
 
+                    String str = "1 / " + size;
+                    pageText.setText(str);
+                    prec.setVisibility(View.GONE);
+                    next.setVisibility(View.VISIBLE);
 
+                }else {
+
+                    layout.setVisibility(View.GONE);
                 }
+
 
                 //List<Event> events = response.body().getResults();
                 recyclerView.setAdapter(new RecyclerEventAdapter(liste_event, MainActivity.this));
@@ -134,6 +198,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void getEltPagination(int page){
+
+        int p = (page - 1) * 50;
+
+        liste_event_bis.clear();
+
+        for (int i = p; i < liste_event.size(); i++){
+
+            liste_event_bis.add(liste_event.get(i));
+        }
+
+        recyclerView.setAdapter(new RecyclerEventAdapter(liste_event_bis, MainActivity.this));
 
     }
 
@@ -192,8 +270,26 @@ public class MainActivity extends AppCompatActivity {
                     empty.setVisibility(View.GONE);
                     recyclerView.setVisibility(View.VISIBLE);
 
+                    int size = liste_event.size() / 50;
+
+                    size++;
+
+                    if (size > 1){
+
+                        layout.setVisibility(View.VISIBLE);
+
+                        String str = "1 / " + size;
+                        pageText.setText(str);
+                        prec.setVisibility(View.GONE);
+                        next.setVisibility(View.VISIBLE);
+
+                    }else {
+
+                        layout.setVisibility(View.GONE);
+                    }
+
                     //List<Event> events = response.body().getResults();
-                    recyclerView.setAdapter(new RecyclerEventAdapter(liste_event, MainActivity.this));
+                    recyclerView.setAdapter(new RecyclerEventAdapter(liste_event_bis, MainActivity.this));
 
                 }
 

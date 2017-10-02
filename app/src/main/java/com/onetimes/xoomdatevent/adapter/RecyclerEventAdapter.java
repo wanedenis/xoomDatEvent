@@ -48,25 +48,31 @@ public class RecyclerEventAdapter extends RecyclerView.Adapter<RecyclerEventAdap
     public void onBindViewHolder(EventViewHolder holder, int position) {
 
 
-        Glide.with(context).load(events.get(position).getCover())
-                .thumbnail(0.5f)
-                .crossFade()
-                .placeholder(R.drawable.xoomdat)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(holder.cover);
+        try {
 
-        holder.title.setText(events.get(position).getName());
-        holder.location.setText(events.get(position).getLocation_name());
-        String str = "Organized by: " + events.get(position).getOwner_name();
-        holder.by.setText(str);
-        holder.from.setText(events.get(position).getStart_time_human());
-        holder.to.setText(events.get(position).getEnd_time_human());
+                Glide.with(context).load(events.get(position).getCover())
+                        .thumbnail(0.5f)
+                        .crossFade()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(holder.cover);
+
+                holder.title.setText(events.get(position).getName());
+                holder.location.setText(events.get(position).getLocation_name());
+                String str = "Organized by: " + events.get(position).getOwner_name();
+                holder.by.setText(str);
+                holder.from.setText(events.get(position).getStart_time_human());
+                holder.to.setText(events.get(position).getEnd_time_human());
+
+        }catch (IndexOutOfBoundsException e){
+
+            Log.e(TAG,e.toString());
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return events.size();
+        return 50;
     }
 
 
