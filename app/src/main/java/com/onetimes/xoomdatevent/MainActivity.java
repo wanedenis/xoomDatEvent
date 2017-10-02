@@ -2,6 +2,7 @@ package com.onetimes.xoomdatevent;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -36,7 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     ProgressBar progressBar;
-    TextView empty;
+    TextView empty, pageText;
+
+    CardView next, prec;
+
+    int page = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +50,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        prec = (CardView) findViewById(R.id.card_prec);
+        next = (CardView) findViewById(R.id.card_next);
         empty = (TextView) findViewById(R.id.empty);
+        pageText = (TextView) findViewById(R.id.page);
         progressBar = (ProgressBar) findViewById(R.id.progress);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -52,7 +61,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
 
-        //recyclerView
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int a = liste_event.size() / 50;
+
+            }
+        });
 
 
         progressBar.setVisibility(View.VISIBLE);
@@ -92,6 +108,15 @@ public class MainActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 empty.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
+
+                int size = liste_event.size() / 50;
+
+                if (size < 1){
+
+
+
+
+                }
 
                 //List<Event> events = response.body().getResults();
                 recyclerView.setAdapter(new RecyclerEventAdapter(liste_event, MainActivity.this));

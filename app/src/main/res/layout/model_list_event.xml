@@ -28,7 +28,6 @@
                     android:id="@+id/cover"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
-                    android:src="@drawable/test_img"
                     android:scaleType="fitXY"
                     android:foreground="#60000000"/>
 
